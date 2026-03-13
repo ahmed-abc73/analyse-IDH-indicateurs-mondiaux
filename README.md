@@ -62,6 +62,4 @@ Une base de données locale MySQL doit être accessible (voir section connexion 
 | Nom | N° étudiant | Responsabilités |
 |-----|-------------|-----------------|
 | BEKAKRIA Ahmed | 22412063 | Collecte des données, requêtes SQL, analyse et visualisation des données |
-| KHERRAF Soukeyna | 22313318 | Collecte des données |
 | MARCHAL Florient | 22212645 | Rédaction du rapport, création de la base de données, analyse et visualisation des données |
-| SAKINE Mickael | 22306852 | Nettoyage des données |

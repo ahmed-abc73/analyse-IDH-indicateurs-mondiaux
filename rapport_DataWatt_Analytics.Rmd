@@ -1,10 +1,8 @@
 ---
 title: "Rapport de groupe des UE \\newline  Bases de données + Sciences des Données 2"
 author:
-- BEKAKRIA Ahmed, 
-- KHERRAF Soukeyna,
-- MARCHAL Florient,
-- SAKINE Mickael
+- BEKAKRIA Ahmed,
+- MARCHAL Florient
 
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
@@ -82,10 +80,8 @@ De plus, notre étude permettra d’examiner l’évolution de ces indicateurs a
 
 ## Responsabilités et composition de l’équipe
 \begin{itemize}
-\item BEKAKRIA Ahmed : Étudiant n°22412063, collecte des données, requêtes partie SQL, analyse et visualisation des données
-\item KHERRAF Soukeyna : Étudiant n°22313318, collecte des données
+\item BEKAKRIA Ahmed : Étudiant n°22412063, collecte des données, requêtes SQL, analyse et visualisation des données
 \item MARCHAL Florient : Étudiant n°22212645, rédaction du rapport, création de la base de données, analyse et visualisation des données
-\item SAKINE Mickael : Étudiant n°22306852, nettoyage des données
 \end{itemize}
 
 # Base de données
