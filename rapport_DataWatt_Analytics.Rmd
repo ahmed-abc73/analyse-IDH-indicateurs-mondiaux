@@ -47,7 +47,8 @@ always_allow_html: true
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-load(".RData")
+knitr::opts_knit$set(root.dir = "C:/Users/USER/Downloads/DataWatt_extracted/DataWatt_Analytics")
+load("C:/Users/USER/Downloads/DataWatt_extracted/DataWatt_Analytics/.RData")
 ```
 
 
