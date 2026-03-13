@@ -797,6 +797,7 @@ library(ggplot2)
 library(lattice)
 library(corrplot)
 
+corrélation_idh <- as.data.frame(sapply(corrélation_idh, as.numeric))
 matrice_correlation<-cor(corrélation_idh, use = "complete.obs")
 
 col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
