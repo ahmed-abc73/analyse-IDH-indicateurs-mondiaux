@@ -47,6 +47,7 @@ always_allow_html: true
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+load(".RData")
 ```
 
 
@@ -316,7 +317,7 @@ De plus, étant donné que nos données proviennent de différentes sources, cer
 
 ## Requêtes réalisées
 
-```{r, include=FALSE}
+```{r, include=FALSE, eval=FALSE}
 library(DBI)
 con <- DBI::dbConnect(
   drv = RMySQL::MySQL(),    
@@ -332,7 +333,7 @@ con <- DBI::dbConnect(
 ### PIB moyen par continent
 
 Cette requête permet d’obtenir le PIB moyen de chaque continent.
-```{sql connection = con, output.var = "pib_moy"}
+```{sql connection = con, eval=FALSE, output.var = "pib_moy"}
 
 SELECT 
   c.nom_continent, AVG(e.pib_milliards) 
@@ -362,7 +363,7 @@ Cette requête met en évidence que, pour la période allant de 2018 à 2021, la
 
 Nous avons ici réalisé une requête afin de comparer les pays en fonction de leur niveau de développement humain. Pour chaque pays, nous avons extrait la meilleure valeur d'IDH disponible (parmi les années 2018 à 2021) afin d'établir un classement.
 
-```{sql connection = con, output.var = "idh_top10"}
+```{sql connection = con, eval=FALSE, output.var = "idh_top10"}
 
 SELECT 
   nom, 
@@ -391,7 +392,7 @@ Ici, nous pouvons voir que la Suisse est le pays avec le meilleur IDH au monde. 
 
 Nous avons ici réalisé une requête qui renvoie les pays qui ont un espérance de vie supérieur à la moyenne en 2020
 
-```{sql connection = con, output.var = "espe_vie"}
+```{sql connection = con, eval=FALSE, output.var = "espe_vie"}
 
 SELECT 
   p.nom,
@@ -433,7 +434,7 @@ Le résultat de la requête montre que le Japon, Singapour et la Norvège occupe
 ### Pays avec IDE élevé, PIB modéré.
 Cette requête  renvoie les pays qui ont un IDE élevé et un PIB modéré.
 
-```{sql connection = con, output.var = "ide_pib"}
+```{sql connection = con, eval=FALSE, output.var = "ide_pib"}
 
 SELECT 
   p.nom,
@@ -467,7 +468,7 @@ Cette requête permet d'identifier les pays qui attirent des IDE supérieurs à 
 
 Voici une requête utilisant un LEFT JOIN pour afficher les identifiants de pays avec les identifiants de la corruption.
 
-```{sql connection = con, output.var = "corruption_data"}
+```{sql connection = con, eval=FALSE, output.var = "corruption_data"}
 
 SELECT
   Pays.id_pays,
@@ -531,7 +532,7 @@ Et pour terminer, nous comparerons le seuil à la valeur absolue de notre statis
 # Analyse Exploratoire des Données
 Dans cette partie nous allons analyser les données qui nous semblent importantes pour répondre a notre question de recherche. Pour cela nous avons réalisé différents graphiques qui nous permettront de mieux comprendre les données.
 
-```{sql connection = con, output.var = "idh_2018", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "idh_2018", include=FALSE}
 SELECT Développement.id_développement, Développement.idh, Pays.nom
 FROM Développement, a_Pour_Développement, Pays
 WHERE Développement.id_développement=a_Pour_Développement.id_développement
@@ -539,14 +540,14 @@ AND a_Pour_Développement.id_pays=Pays.id_pays
 AND a_Pour_Développement.année=2018
 ```
 
-```{sql connection = con, output.var = "idh_2021", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "idh_2021", include=FALSE}
 SELECT Développement.id_développement, Développement.idh  
 FROM Développement, a_Pour_Développement
 WHERE Développement.id_développement=a_Pour_Développement.id_développement
 AND année=2021
 ```
 
-```{sql connection = con, output.var = "chomage2018", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "chomage2018", include=FALSE}
 SELECT Emploi.taux_chomage, Pays.nom
 FROM Emploi, évalue, Pays
 WHERE Emploi.id_emploi=évalue.id_emploi
@@ -554,7 +555,7 @@ AND évalue.id_pays=Pays.id_pays
 AND évalue.année=2018
 ```
 
-```{sql connection = con, output.var = "chomage2021", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "chomage2021", include=FALSE}
 SELECT Emploi.taux_chomage
 FROM Emploi, évalue, Pays
 WHERE Emploi.id_emploi=évalue.id_emploi
@@ -562,7 +563,7 @@ AND évalue.id_pays=Pays.id_pays
 AND évalue.année=2021
 ```
 
-```{sql connection = con, output.var = "corrélation_idh", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "corrélation_idh", include=FALSE}
 SELECT DISTINCT
     Développement.idh, 
     Inégalité.indice_gini AS gini, 
@@ -628,7 +629,7 @@ WHERE
 ;
 ```
 
-```{sql connection = con, output.var = "pib_santé", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "pib_santé", include=FALSE}
 SELECT Santé.dépenses_santé_pib, pays.nom
 FROM Santé, Pays, a_Pour_Santé
 WHERE Santé.id_santé=a_Pour_Santé.id_santé
@@ -636,14 +637,14 @@ AND a_Pour_Santé.id_pays=Pays.id_pays
 AND année=2021
 ```
 
-```{sql connection = con, output.var = "nb_pays_par_continent", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "nb_pays_par_continent", include=FALSE}
 SELECT COUNT(id_pays) AS nb_pays, Continent.nom_continent 
 FROM Pays, Continent 
 WHERE Pays.id_continent=Continent.id_continent 
 GROUP BY Continent.nom_continent;
 ```
 
-```{sql connection = con, output.var = "pib_2018", include=FALSE}
+```{sql connection = con, eval=FALSE, output.var = "pib_2018", include=FALSE}
 SELECT Économie.pib_milliards, Pays.nom AS pays, possède.année, Continent.nom_continent
 FROM Économie, possède, Pays, Continent
 WHERE Économie.id_économie=possède.id_économie
